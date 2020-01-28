@@ -1,6 +1,7 @@
 ## Start the Application
 
 **If you have docker installed**:
+- You can build the image using the script: build-docker-image.sh
 - Go to the project's root directory and type: ```docker-compose up```
 
 It will spin up a nginx and the spring application. The port 80 and 443 are open.
