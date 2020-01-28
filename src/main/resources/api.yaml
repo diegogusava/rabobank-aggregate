@@ -1,0 +1,148 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Rabobank API
+servers:
+  - url: /api
+security:
+  - bearerAuth: []
+
+paths:
+  /accounts:
+    get:
+      summary: List all acounts that an operator can view
+      operationId: findAccounts
+      tags:
+        - portfolio
+      responses:
+        '200':
+          description: A list of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+        '403':
+          description: Access Denied
+  /accounts/{accountId}:
+    parameters:
+      - name: accountId
+        in: path
+        description: Account Id
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Find account by ID
+      operationId: findAccountById
+      tags:
+        - portfolio
+      responses:
+        '200':
+          description: Account found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountDetail"
+        '403':
+          description: Access Denied
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      bearerFormat: JWT
+      scheme: bearer
+
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    AccountDetail:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        accountHolder:
+          type: string
+        createdDate:
+          type: string
+          format: date
+        balance:
+          type: number
+          format: BigDecimal
+        debitCards:
+          type: array
+          items:
+            $ref: "#/components/schemas/DebitCard"
+        creditCards:
+          type: array
+          items:
+            $ref: "#/components/schemas/CreditCard"
+
+    DebitCard:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: "#/components/schemas/CardStatus"
+        cardNumber:
+          type: string
+        sequenceNumber:
+          type: string
+        cardHolder:
+          type: string
+        atmLimit:
+          $ref: "#/components/schemas/CardLimit"
+        posLimit:
+          $ref: "#/components/schemas/CardLimit"
+        contactless:
+          type: boolean
+
+    CreditCard:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: "#/components/schemas/CardStatus"
+        cardNumber:
+          type: string
+        sequenceNumber:
+          type: string
+        cardHolder:
+          type: string
+        monthlyLimit:
+          type: BigDecimal
+
+    CardLimit:
+      type: object
+      properties:
+        amount:
+          type: BigDecimal
+        period:
+          $ref: "#/components/schemas/PeriodUnit"
+
+    CardStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - INACTIVE
+
+    PeriodUnit:
+      type: string
+      enum:
+        - DAY
+        - WEEK
+        - MONTH
