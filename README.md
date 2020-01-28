@@ -80,7 +80,7 @@ will be added to the Account class.
 
 # Architecture
 
-Based on the information above I have identified 4 services.
+Based on the information above I have identified 3 services and one aggregator service.
 - account
 - card
 - operator
