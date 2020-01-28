@@ -122,7 +122,7 @@ it can also generate clients (java, javascript).
 - Nginx: It is used as a reverse proxy, and provides secure channel with a
 self sign certificate.
 
-### Remarks about the old API
+# Remarks about the old API
 - It was exporting data that was blocked / inactive.
 - For the credit card 3333 the application is throwing an exception.
 - Anyone can access the information
