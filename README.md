@@ -121,3 +121,14 @@ Because it is a demo, I tried to keep things simple. Things I used:
 it can also generate clients (java, javascript).
 - Nginx: It is used as a reverse proxy, and provides secure channel with a
 self sign certificate.
+
+### Remarks about the old API
+- It was exporting data that was blocked / inactive.
+- For the credit card 3333 the application is throwing an exception.
+- Anyone can access the information
+- I wasn't sure whether it is possible to grant access to a personal account for a
+whole company and who belongs to the company. In this case, I created another group
+using OperatorGroup class that defines who belongs to the company and can have access to
+that account, the same goes for the "Fellowship of the ring", each card belongs to one
+operator, and all the operators belong to the group "Fellowship of the ring".
+- Account holder has a typo for account 123123123
